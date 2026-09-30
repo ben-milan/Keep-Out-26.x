@@ -3,6 +3,7 @@ package com.bmk.keepout;
 
 import com.bmk.keepout.command.ToggleDimensionsCommand;
 import com.bmk.keepout.event.EndPortalBlocker;
+import com.bmk.keepout.util.TickScheduler;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -21,6 +22,7 @@ public class KeepOut implements ModInitializer {
 			ToggleDimensionsCommand.register(dispatcher);
 		});
 
+		TickScheduler.register();
 		EndPortalBlocker.register();
 	}
 

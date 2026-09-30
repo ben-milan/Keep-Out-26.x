@@ -1,6 +1,8 @@
 package com.bmk.keepout.event;
 
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -13,6 +15,11 @@ public class EndPortalBlocker {
             if (endEnabled) return InteractionResult.PASS;
             if(!player.getItemInHand(hand).is(Items.ENDER_EYE)) return InteractionResult.PASS;
             if (!level.getBlockState(hitResult.getBlockPos()).is(Blocks.END_PORTAL_FRAME)) return InteractionResult.PASS;
+
+            if (!level.isClientSide()) {
+                player.sendOverlayMessage(Component.literal("This dimension is currently disabled!").withStyle(ChatFormatting.RED));
+            }
+
             return InteractionResult.FAIL;
         });
     }
